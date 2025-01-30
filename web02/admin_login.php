@@ -31,6 +31,14 @@ if (isset($_POST['refresh_captcha'])) {
 
     <div class="container mt-4">
         <h2>網站管理</h2>
+        <?php if (isset($_SESSION['error'])): ?>
+            <div class="alert alert-danger">
+                <?php 
+                echo $_SESSION['error'];
+                unset($_SESSION['error']);
+                ?>
+            </div>
+        <?php endif; ?>
         <form method="post" action="verify_login.php" class="mt-4">
             <div class="mb-3">
                 <label for="username" class="form-label">帳號</label>
