@@ -1,21 +1,9 @@
 <?php
 session_start();
-<<<<<<< HEAD
 $servername = "127.0.0.1";
 $username = "root";
 $password = "";
 $dbname = "message_board2";
-=======
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit();
-}
-
-$servername = "127.0.0.1";#伺服器IP
-$username = "root";#伺服器帳號
-$password = "";#伺服器密碼
-$dbname = "message_board";#資料庫名稱
->>>>>>> parent of 2f34e82 (update login)
 
 // 創建連接
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -26,26 +14,19 @@ if ($conn->connect_error) {
 }
 
 $message_id = $_GET['id'];
-<<<<<<< HEAD
 $message_code = $_POST['message_code'];
 
 // 獲取留言內容
 $stmt = $conn->prepare("SELECT * FROM messages WHERE id = ? AND message_code = ?");
 $stmt->bind_param("is", $message_id, $message_code);
-=======
-$user_id = $_SESSION['user_id'];
-// 獲取留言內容
-$stmt = $conn->prepare("SELECT message FROM messages WHERE id = ? AND user_id = ?");
-$stmt->bind_param("ii", $message_id, $user_id);
->>>>>>> parent of 2f34e82 (update login)
 $stmt->execute();
 $result = $stmt->get_result();
 $message = $result->fetch_assoc();
 $stmt->close();
+
 // 修改留言功能
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['new_message'])) {
     $new_message = $_POST['new_message'];
-<<<<<<< HEAD
     $new_email = $_POST['new_email'];
     $new_phone = $_POST['new_phone'];
     $show_email_phone = isset($_POST['show_email_phone']) ? 1 : 0;
@@ -62,10 +43,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['new_message'])) {
 
     $stmt = $conn->prepare("UPDATE messages SET message = ?, email = ?, phone = ?, show_email_phone = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ? AND message_code = ?");
     $stmt->bind_param("sssisi", $new_message, $new_email, $new_phone, $show_email_phone, $message_id, $message_code);
-=======
-    $stmt = $conn->prepare("UPDATE messages SET message = ? WHERE id = ? AND user_id = ?");
-    $stmt->bind_param("sii", $new_message, $message_id, $user_id);
->>>>>>> parent of 2f34e82 (update login)
     if ($stmt->execute()) {
         header("Location: index.php");
     } else {
