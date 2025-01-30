@@ -5,10 +5,10 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-$servername = "127.0.0.1";#伺服器IP
-$username = "root";#伺服器帳號
-$password = "";#伺服器密碼
-$dbname = "message_board";#資料庫名稱
+$servername = "127.0.0.1";
+$username = "root";
+$password = "";
+$dbname = "message_board";
 
 // 創建連接
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -21,18 +21,34 @@ if ($conn->connect_error) {
 // 獲取留言ID
 $message_id = $_GET['id'];
 $user_id = $_SESSION['user_id'];
-// 獲取留言內容
-$stmt = $conn->prepare("SELECT message FROM messages WHERE id = ? AND user_id = ?");
-$stmt->bind_param("ii", $message_id, $user_id);
+
+// 管理者可以修改任何留言
+if ($_SESSION['username'] == 'admin') {
+    $stmt = $conn->prepare("SELECT message FROM messages WHERE id = ?");
+    $stmt->bind_param("i", $message_id);
+} else {
+    $stmt = $conn->prepare("SELECT message FROM messages WHERE id = ? AND user_id = ?");
+    $stmt->bind_param("ii", $message_id, $user_id);
+}
+
 $stmt->execute();
 $stmt->bind_result($message);
 $stmt->fetch();
 $stmt->close();
+
 // 修改留言功能
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $new_message = $_POST['new_message'];
-    $stmt = $conn->prepare("UPDATE messages SET message = ? WHERE id = ? AND user_id = ?");
-    $stmt->bind_param("sii", $new_message, $message_id, $user_id);
+
+    // 管理者可以修改任何留言
+    if ($_SESSION['username'] == 'admin') {
+        $stmt = $conn->prepare("UPDATE messages SET message = ? WHERE id = ?");
+        $stmt->bind_param("si", $new_message, $message_id);
+    } else {
+        $stmt = $conn->prepare("UPDATE messages SET message = ? WHERE id = ? AND user_id = ?");
+        $stmt->bind_param("sii", $new_message, $message_id, $user_id);
+    }
+
     if ($stmt->execute()) {
         header("Location: messages.php");
     } else {

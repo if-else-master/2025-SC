@@ -4,6 +4,7 @@ body {
     margin: 0;
     padding: 0;
     color: #333;
+    font-family: Arial, sans-serif;
 }
 
 .container {
@@ -116,4 +117,87 @@ a {
 
 a:hover {
     text-decoration: underline;
+}
+
+/* 導航欄基本樣式 */
+/* 導航欄基本樣式 */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #333;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+}
+
+.navbar a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+/* 主導航樣式 */
+.main-nav {
+    display: flex;
+    align-items: center;
+}
+
+/* 漢堡菜單樣式 - 移除 display: none */
+.hamburger {
+    flex-direction: column;
+    cursor: pointer;
+    padding: 10px;
+    position: relative;
+}
+
+.hamburger span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    margin: 2px 0;
+    transition: 0.4s;
+}
+
+/* 下拉菜單樣式 */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* 顯示下拉菜單的類 */
+.show {
+    display: block;
+}
+
+/* 移除響應式設計中隱藏主導航項目的部分 */
+@media screen and (max-width: 768px) {
+    .main-nav a {
+        display: block;  /* 確保所有連結都顯示 */
+    }
 }
