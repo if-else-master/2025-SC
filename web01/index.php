@@ -10,7 +10,7 @@
     <div class="navbar">
         <div class="main-nav">     
             <a href="index.php">快樂旅遊網</a>        
-            <a href="#">訪客留言</a>
+            <a href="rootmsg.php">訪客留言</a>
             <a href="#">訪客訂房</a>
             <a href="#">訪客訂餐</a>
             <a href="login.php">網站管理</a>

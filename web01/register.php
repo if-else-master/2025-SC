@@ -2,7 +2,7 @@
 $servername = "127.0.0.1";#伺服器IP
 $username = "root";#伺服器帳號
 $password = "";#伺服器密碼
-$dbname = "message_board";#資料庫名稱
+$dbname = "message_board2";#資料庫名稱
 // 創建連接
 $conn = new mysqli($servername, $username, $password, $dbname);
 

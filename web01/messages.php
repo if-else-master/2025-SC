@@ -8,7 +8,7 @@ if (!isset($_SESSION['user_id'])) {
 $servername = "127.0.0.1";
 $username = "root";
 $password = "";
-$dbname = "message_board";
+$dbname = "message_board2";
 
 // 創建連接
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -39,10 +39,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete'])) {
 
     // 管理者可以刪除任何留言
     if ($_SESSION['username'] == 'admin') {
-        $stmt = $conn->prepare("UPDATE messages SET deleted = 1 WHERE id = ?");
+        $stmt = $conn->prepare("UPDATE messages SET deleted = 1, deleted_at = CURRENT_TIMESTAMP WHERE id = ?");
         $stmt->bind_param("i", $message_id);
     } else {
-        $stmt = $conn->prepare("UPDATE messages SET deleted = 1 WHERE id = ? AND user_id = ?");
+        $stmt = $conn->prepare("UPDATE messages SET deleted = 1, deleted_at = CURRENT_TIMESTAMP WHERE id = ? AND user_id = ?");
         $stmt->bind_param("ii", $message_id, $user_id);
     }
 
@@ -55,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete'])) {
 }
 
 // 顯示留言
-$stmt = $conn->prepare("SELECT messages.id, users.username, messages.message, messages.created_at, messages.deleted FROM messages JOIN users ON messages.user_id = users.id");
+$stmt = $conn->prepare("SELECT messages.id, users.username, messages.message, messages.created_at, messages.deleted, messages.deleted_at FROM messages JOIN users ON messages.user_id = users.id ORDER BY messages.created_at DESC");
 $stmt->execute();
 $result = $stmt->get_result();
 
@@ -84,11 +84,12 @@ $conn->close();
                 <?php if ($row['deleted'] == 1): ?>
                     <p><strong>留言ID:</strong> <?php echo $row['id']; ?></p>
                     <p><strong>狀態:</strong> 已刪除</p>
+                    <p><strong>刪除於:</strong> <?php echo date('Y/m/d H:i:s', strtotime($row['deleted_at'])); ?></p>
                 <?php else: ?>
                     <p><strong>留言ID:</strong> <?php echo $row['id']; ?></p>
                     <p><strong>使用者:</strong> <?php echo $row['username']; ?></p>
                     <p><strong>留言內容:</strong> <?php echo $row['message']; ?></p>
-                    <p><strong>留言時間:</strong> <?php echo $row['created_at']; ?></p>
+                    <p><strong>留言時間:</strong> <?php echo date('Y/m/d H:i:s', strtotime($row['created_at'])); ?></p>
                     <?php if ($_SESSION['username'] == 'admin' || $row['username'] == $_SESSION['username']): ?>
                         <div class="edit-delete">
                             <a href="edit_message.php?id=<?php echo $row['id']; ?>">修改</a>

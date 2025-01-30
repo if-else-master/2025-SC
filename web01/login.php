@@ -3,7 +3,7 @@ session_start();
 $servername = "127.0.0.1";
 $username = "root";
 $password = "";
-$dbname = "message_board";
+$dbname = "message_board2";
 
 // 創建連接
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -123,7 +123,7 @@ $conn->close();
     <div class="navbar">
         <div class="main-nav">
             <a href="index.php">快樂旅遊網</a>
-            <a href="#">訪客留言</a>
+            <a href="rootmsg.php">訪客留言</a>
             <a href="#">訪客訂房</a>
             <a href="#">訪客訂餐</a>
             <a href="login.php">網站管理</a>
