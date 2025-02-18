@@ -1,0 +1,77 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Microsoft JhengHei', sans-serif;
+    line-height: 1.6;
+}
+
+header {
+    background: #f8f9fa;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.logo {
+    max-width: 200px;
+}
+
+.logo img {
+    width: 100%;
+    height: auto;
+}
+
+.buttons {
+    margin: 1rem 0;
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-right: 1rem;
+}
+
+.btn:hover {
+    background: #0056b3;
+}
+
+.photo-showcase {
+    padding: 2rem;
+    background: #fff;
+}
+
+.content {
+    padding: 2rem;
+}
+
+footer {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+/* 在现有样式后添加 */
+.language-switcher {
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+.language-switcher a {
+    text-decoration: none;
+    color: #007bff;
+    padding: 5px;
+}
+
+.language-switcher a:hover {
+    text-decoration: underline;
+}
