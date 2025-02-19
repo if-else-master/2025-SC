@@ -33,6 +33,8 @@
             margin-right: 10px;
         }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
     <div class="verify-container">

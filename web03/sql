@@ -1,0 +1,44 @@
+-- 创建数据库
+CREATE DATABASE IF NOT EXISTS gtin_system CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE gtin_system;
+
+-- 创建管理员表
+CREATE TABLE administrators (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 创建会员公司表
+CREATE TABLE companies (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    address TEXT NOT NULL,
+    phone VARCHAR(20) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    owner_name VARCHAR(50) NOT NULL,
+    is_active BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- 创建产品表
+CREATE TABLE products (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    company_id INT NOT NULL,
+    name_zh VARCHAR(100) NOT NULL,
+    name_en VARCHAR(100) NOT NULL,
+    gtin VARCHAR(13) NOT NULL UNIQUE,
+    description_zh TEXT,
+    description_en TEXT,
+    image_path VARCHAR(255),
+    is_hidden BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (company_id) REFERENCES companies(id) ON DELETE CASCADE
+);
+
+-- 插入默认管理员账号
+INSERT INTO administrators (username, password) VALUES ('admin', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi');
+-- 注：上面的密码哈希值对应 'abcd1234'
