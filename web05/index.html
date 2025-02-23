@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>產品管理系統</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="images/logo.png" alt="網站 LOGO">
+        </div>
+        <div class="title">
+            <h1>產品管理系統</h1>
+        </div>
+        <nav>
+            <a href="gtin_validation.html" class="button">GTIN 批次驗證</a>
+            <a href="product_search.html" class="button">產品查詢</a>
+            <a href="admin/login.html" class="button">管理</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="photo-showcase">
+            <div class="photo-container">
+                <!-- 照片將通過 JavaScript 動態加載 -->
+            </div>
+        </section>
+
+        <section class="content">
+            <h2>會員公司列表</h2>
+            <div id="companies-list">
+                <!-- 公司列表將通過 JavaScript 動態加載 -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 產品管理系統. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // 加載並展示照片
+        const photos = [
+            'images/product1.jpg',
+            'images/product2.jpg',
+            'images/product3.jpg'
+        ];
+        
+        const photoContainer = document.querySelector('.photo-container');
+        let currentPhotoIndex = 0;
+
+        function showNextPhoto() {
+            const img = document.createElement('img');
+            img.src = photos[currentPhotoIndex];
+            img.style.opacity = '0';
+            photoContainer.innerHTML = '';
+            photoContainer.appendChild(img);
+            
+            setTimeout(() => {
+                img.style.opacity = '1';
+            }, 100);
+
+            currentPhotoIndex = (currentPhotoIndex + 1) % photos.length;
+        }
+
+        showNextPhoto();
+        setInterval(showNextPhoto, 3000);
+
+        // 加載會員公司列表
+        fetch('api.php?action=companies')
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const companiesList = document.getElementById('companies-list');
+                    data.data.forEach(company => {
+                        const companyDiv = document.createElement('div');
+                        companyDiv.className = 'company-card';
+                        companyDiv.innerHTML = `
+                            <h3>${company.name}</h3>
+                            <p>地址：${company.address}</p>
+                            <p>電話：${company.phone}</p>
+                            <p>Email：${company.email}</p>
+                        `;
+                        companiesList.appendChild(companyDiv);
+                    });
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    </script>
+</body>
+</html>

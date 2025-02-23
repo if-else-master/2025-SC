@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>產品查詢 - 產品管理系統</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="index.html">
+                <img src="images/logo.png" alt="網站 LOGO">
+            </a>
+        </div>
+        <div class="title">
+            <h1>產品查詢</h1>
+        </div>
+        <div class="language-switch">
+            <button id="zh" class="active">中文</button>
+            <button id="en">English</button>
+        </div>
+    </header>
+
+    <main>
+        <section class="search-section">
+            <input 
+                type="text" 
+                id="search-input" 
+                placeholder="請輸入 GTIN 編號進行查詢"
+                maxlength="13">
+            <button id="search-button" class="button">查詢</button>
+        </section>
+
+        <section class="product-details hidden">
+            <div class="product-image">
+                <img id="product-img" src="images/default-product.png" alt="產品圖片">
+            </div>
+            <div class="product-info">
+                <h2 id="company-name"></h2>
+                <h3 id="product-name"></h3>
+                <p id="gtin-code"></p>
+                <div id="product-description"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 產品管理系統. All rights reserved.</p>
+    </footer>
+
+    <script>
+        let currentLanguage = 'zh';
+        let currentProduct = null;
+
+        // 語言切換
+        document.querySelectorAll('.language-switch button').forEach(button => {
+            button.addEventListener('click', function() {
+                currentLanguage = this.id;
+                document.querySelectorAll('.language-switch button').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                this.classList.add('active');
+                updateProductDisplay();
+            });
+        });
+
+        // 產品查詢
+        document.getElementById('search-button').addEventListener('click', function() {
+            const gtin = document.getElementById('search-input').value;
+            if (gtin.length !== 13) {
+                alert('GTIN 必須為 13 位數字');
+                return;
+            }
+
+            fetch(`api.php?action=validate_gtin`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ gtins: gtin })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success && data.data.results[gtin] === 'valid') {
+                    // 獲取產品詳細信息
+                    fetch(`api.php?action=products&gtin=${gtin}`)
+                        .then(response => response.json())
+                        .then(productData => {
+                            if (productData.success && productData.data) {
+                                currentProduct = productData.data;
+                                updateProductDisplay();
+                                document.querySelector('.product-details').classList.remove('hidden');
+                            }
+                        });
+                } else {
+                    alert('找不到該產品');
+                    document.querySelector('.product-details').classList.add('hidden');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+
+        function updateProductDisplay() {
+            if (!currentProduct) return;
+
+            document.getElementById('product-img').src = currentProduct.image_path || 'images/default-product.png';
+            document.getElementById('company-name').textContent = currentProduct.company_name;
+            document.getElementById('product-name').textContent = 
+                currentLanguage === 'zh' ? currentProduct.name_zh : currentProduct.name_en;
+            document.getElementById('gtin-code').textContent = `GTIN: ${currentProduct.gtin}`;
+            document.getElementById('product-description').textContent = 
+                currentLanguage === 'zh' ? currentProduct.description_zh : currentProduct.description_en;
+        }
+    </script>
+</body>
+</html>

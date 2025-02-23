@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GTIN 批次驗證 - 產品管理系統</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="index.html">
+                <img src="images/logo.png" alt="網站 LOGO">
+            </a>
+        </div>
+        <div class="title">
+            <h1>GTIN 批次驗證</h1>
+        </div>
+    </header>
+
+    <main>
+        <section class="validation-form">
+            <form id="gtin-form">
+                <textarea 
+                    name="gtins" 
+                    id="gtins" 
+                    rows="10" 
+                    placeholder="請輸入要驗證的 GTIN 編號，每行一個"
+                    required></textarea>
+                <button type="submit" class="button">驗證</button>
+            </form>
+        </section>
+
+        <section class="validation-results">
+            <div id="result-summary" class="hidden">
+                <!-- 驗證結果摘要將在這裡顯示 -->
+            </div>
+            <div id="detailed-results">
+                <!-- 詳細驗證結果將在這裡顯示 -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 產品管理系統. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById('gtin-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const gtins = document.getElementById('gtins').value;
+            
+            fetch('api.php?action=validate_gtin', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ gtins: gtins })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const resultSummary = document.getElementById('result-summary');
+                    const detailedResults = document.getElementById('detailed-results');
+                    
+                    resultSummary.className = data.data.all_valid ? 'success' : 'error';
+                    resultSummary.innerHTML = data.data.all_valid ? 
+                        '<span class="check-mark">✓</span> All valid' : 
+                        '部分 GTIN 無效';
+                    
+                    detailedResults.innerHTML = '';
+                    Object.entries(data.data.results).forEach(([gtin, status]) => {
+                        const resultDiv = document.createElement('div');
+                        resultDiv.className = `result-item ${status.toLowerCase()}`;
+                        resultDiv.textContent = `${gtin}: ${status}`;
+                        detailedResults.appendChild(resultDiv);
+                    });
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>

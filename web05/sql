@@ -1,0 +1,57 @@
+-- 創建資料庫
+CREATE DATABASE IF NOT EXISTS web05 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE web05;
+
+-- 創建會員公司表
+CREATE TABLE companies (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    address TEXT,
+    phone VARCHAR(50),
+    email VARCHAR(255),
+    owner_name VARCHAR(255),
+    is_disabled TINYINT(1) DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- 創建產品表
+CREATE TABLE products (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    company_id INT,
+    name_zh VARCHAR(255) NOT NULL,
+    name_en VARCHAR(255) NOT NULL,
+    gtin VARCHAR(13) NOT NULL UNIQUE,
+    description_zh TEXT,
+    description_en TEXT,
+    image_path VARCHAR(255),
+    is_hidden TINYINT(1) DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (company_id) REFERENCES companies(id) ON DELETE CASCADE
+);
+
+-- 創建管理員表
+CREATE TABLE admins (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 插入預設管理員帳號（密碼使用 password_hash 加密）
+INSERT INTO admins (username, password) VALUES 
+('admin', 'admin1234');
+
+-- 插入測試用會員公司資料
+INSERT INTO companies (name, address, phone, email, owner_name) VALUES
+('台灣科技公司', '台北市信義區信義路五段7號', '02-2345-6789', 'contact@techcorp.tw', '張大明'),
+('創新科技有限公司', '台中市西屯區文心路二段128號', '04-2234-5678', 'info@innovate.com.tw', '李小華'),
+('未來電子股份有限公司', '高雄市前鎮區中華五路789號', '07-3456-7890', 'service@future-el.com.tw', '王志明');
+
+-- 插入測試用產品資料
+INSERT INTO products (company_id, name_zh, name_en, gtin, description_zh, description_en) VALUES
+(1, '智慧手環', 'Smart Band', '4710123456789', '具備心率監測、睡眠追蹤等功能的智慧手環', 'Smart band with heart rate monitoring and sleep tracking features'),
+(1, '藍牙耳機', 'Bluetooth Earphones', '4710123456790', '高音質無線藍牙耳機，支援降噪功能', 'High-quality wireless bluetooth earphones with noise cancellation'),
+(2, '太陽能充電器', 'Solar Charger', '4710123456791', '便攜式太陽能充電器，支援多種裝置充電', 'Portable solar charger compatible with various devices'),
+(3, '智慧門鎖', 'Smart Lock', '4710123456792', '支援指紋辨識與遠端控制的智慧門鎖', 'Smart door lock with fingerprint recognition and remote control');
