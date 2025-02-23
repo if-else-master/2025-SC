@@ -1,0 +1,205 @@
+/* 全域樣式 */
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f5f7fa;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+h1, h2, h3 {
+    color: #444;
+    font-weight: 600;
+    margin-top: 0;
+}
+
+/* 容器樣式 */
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+/* 卡片樣式 */
+.card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* 表單樣式 */
+form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+form input, form textarea, form button {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+form input:focus, form textarea:focus {
+    border-color: #007BFF;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    outline: none;
+}
+
+form button {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+/* 表格樣式 */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+table th, table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+table th {
+    background-color: #f9f9f9;
+    font-weight: 600;
+    color: #555;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* 按鈕樣式 */
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+
+/* 鏈接樣式 */
+a {
+    color: #0044ff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: #000000;
+    text-decoration: none;
+}
+
+/* 停用狀態 */
+.inactive {
+    color: #999;
+    text-decoration: line-through;
+}
+
+/* 頁尾樣式 */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #333;
+    color: #fff;
+    border-top: 1px solid #ddd;
+    font-size: 14px;
+}
+
+/* 登出按鈕樣式 */
+.logout-button {
+    background-color: #ff4d4d; /* 紅色背景 */
+    color: #fff; /* 白色文字 */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px; /* 圓角 */
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.logout-button:hover {
+    background-color: #ff1a1a; /* 懸停時變暗 */
+    transform: translateY(-2px); /* 上移效果 */
+}
+
+/* 頁頭樣式 */
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.logout-button, a {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.logout-button:hover, a:hover {
+    background-color: #0056b3;
+}
