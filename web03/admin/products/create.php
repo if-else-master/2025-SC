@@ -10,10 +10,7 @@ $companies = $stmt->fetchAll();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>新增產品</title>
-    <link rel="stylesheet" href="../../css/admin.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <title>新增產品</title>   
 </head>
 <body>
     <div class="admin-container">

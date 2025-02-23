@@ -16,17 +16,15 @@ $products = $stmt->fetchAll();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>產品管理</title>
-    <link rel="stylesheet" href="../../css/admin.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/assets/css/style.css">
+  
 </head>
 <body>
     <div class="admin-container">
         <h1>產品管理</h1>
         <div class="actions">
             <a href="create.php" class="btn">新增產品</a>
-            <a href="import.php" class="btn">批次匯入</a>
-            <a href="export.php" class="btn">匯出資料</a>
+            <!-- <a href="import.php" class="btn">批次匯入</a>
+            <a href="export.php" class="btn">匯出資料</a> -->
             <a href="../index.php" class="btn">返回主頁</a>
         </div>
 

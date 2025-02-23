@@ -13,9 +13,6 @@ $companies = $stmt->fetchAll();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>會員公司管理</title>
-    <link rel="stylesheet" href="../../css/admin.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
     <div class="admin-container">
@@ -26,7 +23,42 @@ $companies = $stmt->fetchAll();
                 查看<?php echo $active ? '停用' : '啟用'; ?>公司
             </a>
             <a href="../index.php" class="btn">返回主頁</a>
+            <div class="export-buttons" style="margin-top: 10px;">
+                <a href="export.php?format=json" class="btn">匯出 JSON</a>
+                <a href="export.php?format=csv" class="btn">匯出 CSV</a>            
+                <label for="file-upload" class="btn-small">匯入檔案</label>
+                <input id="file-upload" type="file" accept=".json,.csv" style="display: none;" onchange="handleFileUpload(this)">
+            </div>
         </div>
+
+        <!-- 在 </body> 前添加 JavaScript -->
+        <script>
+        function handleFileUpload(input) {
+            const file = input.files[0];
+            if (!file) return;
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            fetch('import.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('檔案匯入成功！');
+                    location.reload();
+                } else {
+                    alert('匯入失敗：' + data.message);
+                }
+            })
+            .catch(error => {
+                alert('匯入發生錯誤！');
+                console.error(error);
+            });
+        }
+        </script>
 
         <?php if (isset($_SESSION['message'])): ?>
             <div class="message"><?php echo $_SESSION['message']; unset($_SESSION['message']); ?></div>
