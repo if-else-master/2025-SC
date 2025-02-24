@@ -35,19 +35,19 @@ $result = $stmt->get_result();
 <head>
     <meta charset="UTF-8">
     <title>產品管理</title>
-    <link rel="stylesheet" href="css/comp.css">    
+    <link rel="stylesheet" href="css/comp.css">
 </head>
 <body>
     <h2>產品管理</h2>
     <form method="POST">
-        <h3>新增產品</h3>        
+        <h3>新增產品</h3>
         <input type="text" name="name" placeholder="產品名稱 (中文)" required>
         <input type="text" name="name_en" placeholder="產品名稱 (英文)" required>
         <input type="text" name="gtin" placeholder="GTIN (13 碼)" required>
         <textarea name="description" placeholder="產品描述 (中文)" required></textarea>
         <textarea name="description_en" placeholder="產品描述 (英文)" required></textarea>
-        <button type="submit" name="add_product">新增</button>                
-    </form>   
+        <button type="submit" name="add_product">新增</button>
+    </form>
 
     <h3>產品列表</h3>
     <table>
@@ -67,9 +67,11 @@ $result = $stmt->get_result();
         <?php endwhile; ?>
     </table>
 
-    <div style="text-align: center;">
-        <a href="companies.php"><button class="button">返回</button></a>
+    <div>
+        <a href="companies.php">返回</a>
+        <a href="import.php">匯入列表</a>
+        <a href="export.php?company_id=<?= $company_id ?>&format=csv">匯出為 CSV</a>
+        <a href="export.php?company_id=<?= $company_id ?>&format=json">匯出為 JSON</a>
     </div>
 </body>
 </html>
-

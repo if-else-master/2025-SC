@@ -203,3 +203,8 @@ header h1 {
 .logout-button:hover, a:hover {
     background-color: #0056b3;
 }
+
+.padding{
+    height: 20px;
+    background-color: #ffffff;
+}
