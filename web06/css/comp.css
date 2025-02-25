@@ -208,3 +208,28 @@ header h1 {
     height: 20px;
     background-color: #ffffff;
 }
+
+/* 產品詳情樣式 */
+.product-details {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.product-details img {
+    display: block;
+    margin-bottom: 20px;
+}
+
+/* 驗證結果樣式 */
+.valid { color: green; }
+.invalid { color: red; }
+.success { color: green; font-weight: bold; }
+
+h2, h3 {
+    color: #444;
+    font-weight: 600;
+    margin-top: 0;
+}

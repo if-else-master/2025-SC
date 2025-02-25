@@ -11,25 +11,69 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_product'])) {
     $description = $_POST['description'];
     $description_en = $_POST['description_en'];
 
-    // 驗證 GTIN
+    // 驗證 GTIN (必須為13位數字)
     if (strlen($gtin) != 13 || !ctype_digit($gtin)) {
         die("無效的 GTIN 格式！");
     }
 
-    $sql = "INSERT INTO products (company_id, name, name_en, gtin, description, description_en) VALUES (?, ?, ?, ?, ?, ?)";
+
+    #chomd -R 0777 uploads
+    // 處理圖片上傳
+    $image_path = 'uploads/2021.png'; // 預設圖片
+    if (isset($_FILES['image'])) {
+        echo '<pre>';
+        print_r($_FILES['image']);
+        echo '</pre>';
+
+        if ($_FILES['image']['error'] !== UPLOAD_ERR_OK) {
+            die("檔案上傳錯誤，錯誤碼：" . $_FILES['image']['error']);
+        }
+
+        $upload_dir = 'uploads/'; // 上傳目錄
+        if (!is_dir($upload_dir)) {
+            if (!mkdir($upload_dir, 0755, true)) {
+                die('無法創建上傳目錄！');
+            }
+        }
+
+        $image_name = basename($_FILES['image']['name']);
+        $image_path = $upload_dir . $image_name;
+        
+        echo '上傳檔案路徑：' . $image_path . '<br>';
+
+        if (move_uploaded_file($_FILES['image']['tmp_name'], $image_path)) {
+            echo "圖片上傳成功！<br>";
+        } else {
+            die("圖片上傳失敗！錯誤碼：" . $_FILES['image']['error']);
+        }
+    } else {
+        die("沒有檔案被上傳！");
+    }
+
+    // 插入資料庫
+    $sql = "INSERT INTO products (company_id, name, name_en, gtin, description, description_en, image_path) VALUES (?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("isssss", $company_id, $name, $name_en, $gtin, $description, $description_en);
-    $stmt->execute();
+    if (!$stmt) {
+        die("資料庫準備失敗：" . $conn->error);
+    }
+    $stmt->bind_param("issssss", $company_id, $name, $name_en, $gtin, $description, $description_en, $image_path);
+    if ($stmt->execute()) {
+        echo "產品新增成功！<br>";
+    } else {
+        die("資料庫操作失敗：" . $stmt->error);
+    }
 }
 
 // 取得產品列表
 $sql = "SELECT * FROM products WHERE company_id = ?";
 $stmt = $conn->prepare($sql);
+if (!$stmt) {
+    die("資料庫查詢準備失敗：" . $conn->error);
+}
 $stmt->bind_param("i", $company_id);
 $stmt->execute();
 $result = $stmt->get_result();
 ?>
-
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
@@ -39,30 +83,39 @@ $result = $stmt->get_result();
 </head>
 <body>
     <h2>產品管理</h2>
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
         <h3>新增產品</h3>
         <input type="text" name="name" placeholder="產品名稱 (中文)" required>
         <input type="text" name="name_en" placeholder="產品名稱 (英文)" required>
         <input type="text" name="gtin" placeholder="GTIN (13 碼)" required>
         <textarea name="description" placeholder="產品描述 (中文)" required></textarea>
         <textarea name="description_en" placeholder="產品描述 (英文)" required></textarea>
+        <input type="file" name="image" accept="image/*" required>
         <button type="submit" name="add_product">新增</button>
     </form>
 
     <h3>產品列表</h3>
-    <table>
+    <table border="1" cellspacing="0" cellpadding="8">
         <tr>
             <th>產品名稱 (中文)</th>
             <th>產品名稱 (英文)</th>
             <th>GTIN</th>
             <th>狀態</th>
+            <th>圖片</th>
         </tr>
         <?php while ($row = $result->fetch_assoc()): ?>
             <tr>
-                <td><?= $row['name'] ?></td>
-                <td><?= $row['name_en'] ?></td>
-                <td><?= $row['gtin'] ?></td>
-                <td><?= $row['status'] ?></td>
+                <td><?= htmlspecialchars($row['name']) ?></td>
+                <td><?= htmlspecialchars($row['name_en']) ?></td>
+                <td><?= htmlspecialchars($row['gtin']) ?></td>
+                <td><?= htmlspecialchars($row['status'] ?? 'N/A') ?></td>
+                <td>
+                    <?php if (file_exists($row['image_path'])): ?>
+                        <img src="<?= htmlspecialchars($row['image_path']) ?>" alt="產品圖片" style="max-width: 100px;">
+                    <?php else: ?>
+                        無圖片
+                    <?php endif; ?>
+                </td>
             </tr>
         <?php endwhile; ?>
     </table>
@@ -70,8 +123,8 @@ $result = $stmt->get_result();
     <div>
         <a href="companies.php">返回</a>
         <a href="import.php">匯入列表</a>
-        <a href="export.php?company_id=<?= $company_id ?>&format=csv">匯出為 CSV</a>
-        <a href="export.php?company_id=<?= $company_id ?>&format=json">匯出為 JSON</a>
+        <a href="export.php?company_id=<?= urlencode($company_id) ?>&format=csv">匯出為 CSV</a>
+        <a href="export.php?company_id=<?= urlencode($company_id) ?>&format=json">匯出為 JSON</a>
     </div>
 </body>
 </html>
