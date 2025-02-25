@@ -1,26 +1,28 @@
-body{
-    font-family: 'Helvetica', Arial, sans-serif;
-    background-color: white;
-    color: black;
+/* 全域樣式 */
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f5f7fa;
+    color: #333;
     margin: 0;
     padding: 0;
     line-height: 1.6;
-
 }
 
-h1,h2,h3{
+h1, h2, h3 {
     color: #444;
     font-weight: 600;
     margin-top: 0;
 }
 
-.cont{
+/* 容器樣式 */
+.container {
     max-width: 1200px;
     margin: 20px auto;
-    padding:20px;
+    padding: 20px;
 }
 
-form{
+/* 表單樣式 */
+form {
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
@@ -28,36 +30,37 @@ form{
     margin-bottom: 20px;
 }
 
-form input, form textarea, form button{
+form input, form textarea, form button {
     width: 100%;
     padding: 12px;
     margin-bottom: 15px;
-    border: 1px solid #ccc;
+    border: 1px solid #ddd;
     border-radius: 4px;
     font-size: 16px;
-    transition: border-color 0.3s,box-shadow 0.3s;
+    transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-form input:focus,form textarea:focus{
-    border-color:blue;
-    box-shadow: 0 0 5px blue;
+form input:focus, form textarea:focus {
+    border-color: #007BFF;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
     outline: none;
 }
 
-form button{
-    background-color: blue;
-    color: white;
+form button {
+    background-color: #007BFF;
+    color: #fff;
     border: none;
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s;
 }
 
-form button:hover{
-    background-color: aqua;
+form button:hover {
+    background-color: #0056b3;
 }
 
-table{
+/* 表格樣式 */
+table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
@@ -67,24 +70,99 @@ table{
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-table th, table td{
-    padding:15px;
+table th, table td {
+    padding: 15px;
     text-align: left;
-    border-bottom: 1px solid white;
+    border-bottom: 1px solid #f1f1f1;
 }
 
-table tr:hover{
-    background-color: #fff;
+table th {
+    background-color: #f9f9f9;
+    font-weight: 600;
+    color: #555;
 }
 
-.button{
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* 按鈕樣式 */
+.button {
     display: inline-block;
     padding: 10px 20px;
-    background-color: blue;
-    color: withe;
+    background-color: #007BFF;
+    color: #fff;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+
+/* 鏈接樣式 */
+a {
+    color: #0044ff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: #000000;
+    text-decoration: none;
+}
+
+/* 停用狀態 */
+.inactive {
+    color: #999;
+    text-decoration: line-through;
+}
+
+
+.logout-button, a {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.logout-button:hover, a:hover {
+    background-color: #0056b3;
+}
+
+.padding{
+    height: 20px;
+    background-color: #ffffff;
+}
+
+/* 產品詳情樣式 */
+.product-details {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.product-details img {
+    display: block;
+    margin-bottom: 20px;
+}
+
+/* 驗證結果樣式 */
+.valid { color: green; }
+.invalid { color: red; }
+.success { color: green; font-weight: bold; }
+
+h2, h3 {
+    color: #444;
+    font-weight: 600;
+    margin-top: 0;
 }

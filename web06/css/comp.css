@@ -21,21 +21,6 @@ h1, h2, h3 {
     padding: 20px;
 }
 
-/* 卡片樣式 */
-.card {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin-bottom: 20px;
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
 /* 表單樣式 */
 form {
     background-color: #fff;
@@ -136,58 +121,6 @@ a:hover {
     text-decoration: line-through;
 }
 
-/* 頁尾樣式 */
-footer {
-    text-align: center;
-    padding: 20px;
-    background-color: #333;
-    color: #fff;
-    border-top: 1px solid #ddd;
-    font-size: 14px;
-}
-
-/* 登出按鈕樣式 */
-.logout-button {
-    background-color: #ff4d4d; /* 紅色背景 */
-    color: #fff; /* 白色文字 */
-    border: none;
-    padding: 10px 20px;
-    border-radius: 20px; /* 圓角 */
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s, transform 0.3s;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.logout-button:hover {
-    background-color: #ff1a1a; /* 懸停時變暗 */
-    transform: translateY(-2px); /* 上移效果 */
-}
-
-/* 頁頭樣式 */
-header {
-    background-color: #333;
-    color: #fff;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-header .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-header h1 {
-    margin: 0;
-    font-size: 24px;
-}
 
 .logout-button, a {
     background-color: #007BFF;

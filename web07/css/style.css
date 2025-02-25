@@ -1,0 +1,129 @@
+body{
+    margin: 0;
+    font-family: Arial,sans-serif;
+    background-color: #8f8572;
+    color: black;
+}
+
+.container{
+    display: flex;  
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.header, .footer{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: white;
+    border: 1px solid black;
+}
+
+.header .logo{
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.header .title{
+    flex: 1;
+    text-align: center;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.header .button{
+    background-color: #868686;
+    color:black;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor:pointer
+}
+
+.header .button:hover{
+    background-color: #fafafa;
+    color:black;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor:pointer;
+    transition: background-color 0.3s ease;
+    
+}
+
+.content{
+    flex: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.content .section{
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.content .section:last-child{
+    margin-bottom: 0;
+}
+
+.photo-gallery{
+    display: flex;
+    font-weight: wrap;
+    justify-content: center;
+    gap: 10px;
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #ddd;
+}
+
+.photo-item{
+    width: 200px;
+    height: 200px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
+}
+
+.content-area{
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+.content-area h2{
+    font-size: 1.8em;
+    margin-bottom: 1.6;
+}
+
+.content-area p{
+    font-size: 1em;
+    line-height: 1.6;
+}
+
+.footer{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 0.9em;
+}
+
+.padding{
+    height: 20px;
+    background-color: black;
+}

@@ -45,8 +45,8 @@ $result = $conn->query(query:$sql);
     <form method="post">
             <h3>新增會員公司</h3>
             <input type="text" name="name" placeholder="公司名稱" required>
-            <input type="text" name="address" placeholder="公司地址"
-            ><input type="text" name="phone" placeholder="公司電話" required>
+            <input type="text" name="address" placeholder="公司地址" required>
+            <input type="text" name="phone" placeholder="公司電話" required>
             <input type="text" name="email" placeholder="公司電子郵件" required>
             <input type="text" name="owner_name" placeholder="負責人姓名" required>
             <button type="submit" name="add_company">新增</button>
