@@ -1,5 +1,5 @@
 <?php
-include ("db.php");
+include("db.php");
 
 if($_SERVER['REQUEST_METHOD']=='POST' && isset($_POST['add_company'])){
     $name = $_POST['name'];
@@ -14,16 +14,6 @@ if($_SERVER['REQUEST_METHOD']=='POST' && isset($_POST['add_company'])){
     $stmt->execute();
 }
 
-if(isset($_GET['action'])&& isset($_GET['id'])){
-    $id = $_GET['id'];
-    $new_status = ($_GET['action']=='deactivate') ? 'inactive' : 'active';
-
-    $sql = "UPDATE companies SET status = ? WHERE id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("si",$new_status,$id);
-    $stmt->execute();
-}
-
 $sql = "SELECT * FROM companies";
 $result = $conn->query($sql);
 ?>
@@ -33,7 +23,7 @@ $result = $conn->query($sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>公司管理</title>
     <link rel="stylesheet" href="css/comp.css">
 </head>
 <body>
@@ -44,7 +34,7 @@ $result = $conn->query($sql);
     <h2>會員公司管理</h2>
     <form method="POST">
         <h3>新增會員管理公司</h3>
-        <input type="text" name="name" placeholder=" 公司名稱" required>
+        <input type="text" name="name" placeholder="公司名稱" required>
         <input type="text" name="address" placeholder="公司地址" required>
         <input type="text" name="phone" placeholder="公司電話" required>
         <input type="email" name="email" placeholder="公司電子郵件" required>
@@ -59,7 +49,6 @@ $result = $conn->query($sql);
             <th>電話</th>
             <th>電子郵件</th>
             <th>擁有者姓名</th>
-            <th>狀態</th>
             <th>操作</th>
         </tr>
         <?php while ($row = $result->fetch_assoc()): ?>
@@ -69,13 +58,7 @@ $result = $conn->query($sql);
                 <td><?= $row['phone'] ?></td>
                 <td><?= $row['email'] ?></td>
                 <td><?= $row['owner_name'] ?></td>
-                <td><?= $row['status'] == 'active' ? '啟用' : '停用' ?></td>
                 <td>
-                    <?php if ($row['status'] == 'active'): ?>
-                        <a href="?action=deactivate&id=<?= $row['id'] ?>">停用</a>
-                    <?php else: ?>
-                        <a href="?action=activate&id=<?= $row['id'] ?>">啟用</a>
-                    <?php endif; ?>
                     <a href="products.php?company_id=<?= $row['id'] ?>">查看產品</a>
                 </td>
             </tr>
@@ -83,10 +66,8 @@ $result = $conn->query($sql);
     </table>
     <script>
         function logout() {
-            // 重新導向到登入頁面
             window.location.href = "login.php";
         }
     </script>
 </body>
 </html>
-
