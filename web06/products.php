@@ -20,34 +20,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_product'])) {
     #chomd -R 0777 uploads
     // 處理圖片上傳
     $image_path = 'uploads/2021.png'; // 預設圖片
-    if (isset($_FILES['image'])) {
-        echo '<pre>';
-        print_r($_FILES['image']);
-        echo '</pre>';
 
-        if ($_FILES['image']['error'] !== UPLOAD_ERR_OK) {
-            die("檔案上傳錯誤，錯誤碼：" . $_FILES['image']['error']);
-        }
+    if (!isset($_FILES['image']) || $_FILES['image']['error'] !== UPLOAD_ERR_OK) {
+        die("檔案上傳錯誤，錯誤碼：" . ($_FILES['image']['error'] ?? '未上傳檔案'));
+    }
 
-        $upload_dir = 'uploads/'; // 上傳目錄
-        if (!is_dir($upload_dir)) {
-            if (!mkdir($upload_dir, 0755, true)) {
-                die('無法創建上傳目錄！');
-            }
-        }
+    $upload_dir = 'uploads/';
+    if (!is_dir($upload_dir) && !mkdir($upload_dir, 0755, true)) {
+        die('無法創建上傳目錄！');
+    }
 
-        $image_name = basename($_FILES['image']['name']);
-        $image_path = $upload_dir . $image_name;
-        
-        echo '上傳檔案路徑：' . $image_path . '<br>';
-
-        if (move_uploaded_file($_FILES['image']['tmp_name'], $image_path)) {
-            echo "圖片上傳成功！<br>";
-        } else {
-            die("圖片上傳失敗！錯誤碼：" . $_FILES['image']['error']);
-        }
+    $image_path = $upload_dir . basename($_FILES['image']['name']);
+    if (move_uploaded_file($_FILES['image']['tmp_name'], $image_path)) {
+        echo "圖片上傳成功！<br>上傳檔案路徑：$image_path";
     } else {
-        die("沒有檔案被上傳！");
+        die("圖片上傳失敗！");
     }
 
     // 插入資料庫

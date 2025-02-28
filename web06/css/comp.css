@@ -142,6 +142,19 @@ a:hover {
     background-color: #ffffff;
 }
 
+
+
+/* 驗證結果樣式 */
+.valid { color: green; }
+.invalid { color: red; }
+.success { color: green; font-weight: bold; }
+
+h2, h3 {
+    color: #444;
+    font-weight: 600;
+    margin-top: 0;
+}
+
 /* 產品詳情樣式 */
 .product-details {
     background-color: #fff;
@@ -154,15 +167,4 @@ a:hover {
 .product-details img {
     display: block;
     margin-bottom: 20px;
-}
-
-/* 驗證結果樣式 */
-.valid { color: green; }
-.invalid { color: red; }
-.success { color: green; font-weight: bold; }
-
-h2, h3 {
-    color: #444;
-    font-weight: 600;
-    margin-top: 0;
 }

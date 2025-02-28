@@ -1,0 +1,26 @@
+CREATE DATABASE web08;
+
+USE web08;
+
+CREATE TABLE companies(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    address VARCHAR(255),
+    phone VARCHAR(20),
+    email VARCHAR(255),
+    owner_name VARCHAR(100),
+    status ENUM('active','inactive') DEFAULT 'active'
+);
+
+CREATE TABLE products(
+    id INT AUTO_INCREMENT PRImARY KEY,
+    company_id INT,
+    name VARCHAR(255) NOT NULL,
+    name_en VARCHAR(255) NOT NULL,
+    gtin VARCHAR(13) NOT NULL,
+    description TEXT,
+    description_en TEXT,
+    image_path VARCHAR(255) DEFAULT 'default.jpg',
+    status ENUM('visible','hidden') DEFAULT 'visible',
+    FOREIGN KEY (company_id) REFERENCES companies(id)
+)
