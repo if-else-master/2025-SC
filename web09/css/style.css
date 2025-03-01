@@ -1,0 +1,89 @@
+body{
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: white;
+    color: black;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.header, .footer{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: aliceblue;
+    border: 1px solid black;
+}
+.header .logo{
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.header .title{
+    flex: 1;
+    text-align: center;
+    font-size: 2em;
+    font-weight: bold;
+}
+.header .button{
+    background-color: rgb(125, 124, 124);
+    border: none;
+    padding: 10px;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.header .button:hover{
+    background-color: rgb(125, 124, 124);
+    border: none;
+    padding: 10px;
+    font-size: 1em;
+    cursor: pointer;
+    color: azure;
+}
+
+.padding{
+    height: 10px;
+    background-color: rgb(255, 255, 255);
+}
+
+.photogall{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #ddd;
+}
+
+.photo-item{
+    width: 200px;
+    height: 200px;
+    background-color: #fff;
+    border: 1px solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.end{
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+.footer{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #ddd;
+}
