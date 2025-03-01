@@ -102,6 +102,8 @@ $result = $stmt->get_result();
             <th>產品英文名稱</th>
             <th>GTIN碼</th>
             <th>圖片</th>
+            <th>狀態</th>
+            <th>
         </tr>
         <?php while ($row = $result->fetch_assoc()): ?>
             <tr>
@@ -124,9 +126,10 @@ $result = $stmt->get_result();
             </tr>
         <?php endwhile; ?>
     </table>    
+    <div class="padding"></div>
     <div>
         <a href="companies.php">返回</a>
-        <a href="import.php">匯入列表</a>
+        <a href="import.php?company_id=<?= $company_id ?>">匯入列表</a>
         <a href="export.php?company_id=<?= urlencode($company_id)?>&format=csv">匯出為 CSV</a>
         <a href="export.php?company_id=<?= urlencode($company_id)?>&format=json">匯出為 JSON</a>
     </div>
