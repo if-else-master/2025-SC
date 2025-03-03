@@ -98,10 +98,27 @@ $result = $stmt->get_result();
                         無圖片
                     <?php endif; ?>
                 </td>
-                <td><?=($row['status'] == 'active') ? '啟用':'停用'?></td>
                 <td>
-                    <a href="?action=<?= ($row['status']=='active')? 'deactivate':'activate'?>&prod_id=<?= $row['id']?>&comp_id=<?= $comp_id?>">
-                        <?= ($row['status'] == 'active')? '停用':'啟用'?>
+                    <?php
+                    if ($row['status'] == 'active') {
+                        echo '啟用';
+                    } else {
+                        echo '停用';
+                    }
+                    ?>
+                </td>
+                <td>
+                    <?php
+                    if ($row['status'] == 'active') {
+                        $action = 'deactivate';
+                        $text = '停用';
+                    } else {
+                        $action = 'activate';
+                        $text = '啟用';
+                    }
+                    ?>
+                    <a href="?action=<?= $action ?>&prod_id=<?= $row['id'] ?>&comp_id=<?= $comp_id ?>">
+                        <?= $text ?>
                     </a>
                 </td>
             </tr>
