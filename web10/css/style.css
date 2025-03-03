@@ -1,0 +1,81 @@
+body{
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: white;
+    color: black;
+}
+
+.cont{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20;
+}
+
+.header,.footer{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: white;
+    border: 1px solid black;
+}
+
+.header .logo{
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.header .title{
+    flex: 1;
+    text-align: center;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.header .button{
+    background-color:  rgb(133, 133, 133);
+    color: rgb(255, 255, 255);
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+}
+
+.header .button:hover{
+    background-color:  rgb(91, 91, 91);
+    color: rgb(255, 255, 255);
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+}
+
+.padding{
+    height: 20px;
+    background-color: white;
+}
+
+.photo-g{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #ddd;
+}
+.photo-t{
+    width: 200px;
+    height: 200px;
+    background-color: #fff;
+    border: 1px solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
+}
+
+.footer{
+    position: fixed;
+    bottom: 0;
+}
