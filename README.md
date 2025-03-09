@@ -64,5 +64,5 @@
 使用 $conn = new mysqli($host,$name,$pass,$db) 進行連接
 
 
-
-本專案遵循 [MIT License](LICENSE) 授權協議。
+聯絡我：rayc57429@gmail.com
+Blog：https://if-else-master.github.io/rayblog.github.io/
