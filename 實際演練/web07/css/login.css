@@ -1,0 +1,94 @@
+body{
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.cont{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.header{
+    display: flex;
+}
+
+.header, footer{
+    width: 100%;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: antiquewhite;
+    border: 1px solid;
+}
+
+.header .logo{
+    font-weight: bold;
+}
+
+.header .title{
+    flex: 1;
+    font-size: 2em;
+    text-align: center;
+    line-height: 80px;
+}
+.header a{
+    background-color: aqua;
+    font-size: 2em;
+    text-align: center;
+    line-height: 80px;
+    padding: 0 20px;
+    border-radius: 8px;
+    margin: 0 10px;
+    text-decoration: none;
+    color: black;
+}
+
+.header a:hover{
+    background-color: rgb(64, 102, 226);
+}
+
+
+.padding{
+    padding: 10px 20px;
+}
+footer{
+    bottom: 0;
+    text-align: center;
+    padding: 10px 20px;
+}
+
+.in{
+    background-color: beige;
+    padding: 90px 120px;
+    border-radius: 8px;
+}
+
+.in .put{
+    padding: 10px 20px;
+    font-size: 2em;
+}
+
+.put input{
+    width: 92.5%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+.button{
+    width: 100%;
+    padding: 10px 20px;
+    background-color: rgb(113, 113, 255);
+    color: white;
+    font-size: 1em;
+}
+
+.button:hover{
+    width: 100%;
+    padding: 10px 20px;
+    background-color: rgb(33, 33, 255);
+    color: white;
+    font-size: 1em;
+}
