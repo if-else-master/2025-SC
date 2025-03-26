@@ -2,8 +2,9 @@
 include 'db.php';
 
 $gtin_list = [];
-$statusn = 0;
 $prod = [];
+$statusn = 0;
+$die = [];
 
 if($_SERVER['REQUEST_METHOD']=="POST" && isset($_POST['search_gtin'])){
     $gtin = $_POST['gtin'];   
@@ -19,14 +20,18 @@ if($_SERVER['REQUEST_METHOD']=="POST" && isset($_POST['search_gtin'])){
         $sql = "SELECT * FROM `prod` WHERE gtin = $gtins";
         $result = $conn->query($sql);
         
-        while ($row = $result->fetch_assoc()) {
-            $prod[] = $row;
-
-            if($row['status']!="Invalid"){
-                $statusn += 1;
+        if($result->num_rows > 0){
+            while ($row = $result->fetch_assoc()) {
+                $prod[] = $row;
+    
+                if($row['status'] == "Invalid"){
+                    $statusn += 1;
+                }
             }
-        }
-        
+        }else{
+            $statusn += 1;
+            $die[] = $gtins;
+        }                
     }
 
 }
@@ -49,6 +54,7 @@ if($_SERVER['REQUEST_METHOD']=="POST" && isset($_POST['search_gtin'])){
             <div class="logo"><img src="img/web08logo.png" alt="LOGO" style="max-width: 80px"></div>
             <div class="title">臺灣人工智慧公會管理系統</div>
             <a href="index.php">返回</a>
+            <a href="search_prod.php">查詢產品</a>
         </div>        
         <h2>批次查詢</h2>
 
@@ -60,11 +66,14 @@ if($_SERVER['REQUEST_METHOD']=="POST" && isset($_POST['search_gtin'])){
                 </div>
                 <button type="submit" class="button" name="search_gtin">查詢</button>                
             </form>            
-            <?php if($statusn > 0 && !empty($gtin)):?>
+            <?php if ($statusn == 0 && !empty($gtin)):?>
                 <h2>all valid</h2>            
             <?php endif;?>            
             <?php foreach($prod as $prods):?>              
-                <h3><?= $prods['gtin']?>:<?= $prods['status']?></h3>
+                <h3><?= $prods['gtin']?>:<?= $prods['status']?></h3>                
+            <?php endforeach;?>
+            <?php foreach($die as $dies):?>              
+                <h3><?= $dies?>:Invalid</h3>                
             <?php endforeach;?>
         </div>
         

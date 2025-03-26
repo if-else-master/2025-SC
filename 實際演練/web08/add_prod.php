@@ -69,7 +69,7 @@ if($_SERVER['REQUEST_METHOD']=="POST" && isset($_POST['add_prod'])){
                 </div>
                 <div class="put">
                     <label for="image">產品圖片</label>
-                    <input type="file" name="image" accept="image/*" required>
+                    <input type="file" name="image" accept="image/*">
                 </div>
                 <button type="submit" class="button" name="add_prod">新增</button>
             </form>
