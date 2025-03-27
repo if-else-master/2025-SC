@@ -1,13 +1,15 @@
 <?php
+session_start();
 if($_SERVER['REQUEST_METHOD']=="POST"){
     $name = $_POST['name'];
     $password = $_POST['password'];
 
     if($name == "admin" && $password=="abcd1234"){
         header('Location:comp.php');
+        $_SESSION['user_id'] = $name;
     }else{
         echo'帳號密碼錯誤';
-    }
+    }    
 }
 
 

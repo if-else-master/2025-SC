@@ -1,4 +1,12 @@
 <?php
+
+session_start();
+if(!isset($_SESSION['user_id'])){
+    header('Location:login.php');
+    exit();
+}
+
+
 include 'db.php';
 $comp_id = $_GET['comp_id'];
 
@@ -81,7 +89,7 @@ $comp_s = $comp_status['status'];
                             <?php endif;?>
                         <?php endif;?>                                              
                     </th>
-                    <th>8</th>
+                    <th><a href="updataimg.php?id=<?=$row['id']?>&comp_id=<?=$comp_id?>">修改圖片</a></th>
                 </tr>
             <?php endwhile;?>
         </table>

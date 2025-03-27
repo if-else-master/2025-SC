@@ -1,6 +1,12 @@
 <?php
 include 'db.php';
 
+session_start();
+if(!isset($_SESSION['user_id'])){
+    header('Location:login.php');
+    exit();
+}
+
 
 if(isset($_GET['action']) && isset($_GET['id'])){
     $id = $_GET['id'];
@@ -41,7 +47,7 @@ $result = $conn->query($sql);
         <div class="header">
             <div class="logo"><img src="img/web08logo.png" alt="LOGO" style="max-width: 80px"></div>
             <div class="title">臺灣人工智慧公會管理系統</div>
-            <a href="login.php">登出</a>
+            <a href="logout.php">登出</a>
             <a href="add_comp.php">新增公司</a>
         </div>        
         <h2>公司資訊</h2>
@@ -54,7 +60,6 @@ $result = $conn->query($sql);
                 <td>公司擁有者</td>
                 <td>狀態</td>
                 <td>控制</td>
-                <td>修改</td>
             </tr>
             <?php while($row = $result->fetch_assoc()):?>
                 <tr>
@@ -71,7 +76,6 @@ $result = $conn->query($sql);
                             <a href="?action=valid&id=<?= $row['id']?>">公開</a>
                         <?php endif;?>
                     </th>
-                    <th>8</th>
                 </tr>
             <?php endwhile;?>
         </table>

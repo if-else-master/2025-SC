@@ -1,6 +1,7 @@
 <?php
 include 'db.php';
 
+
 $gtin_list = [];
 $prod = [];
 $statusn = 0;

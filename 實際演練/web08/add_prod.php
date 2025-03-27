@@ -1,5 +1,12 @@
 <?php
 include 'db.php';
+
+session_start();
+if(!isset($_SESSION['user_id'])){
+    header('Location:login.php');
+    exit();
+}
+
 $comp_id = $_GET['comp_id'];
 if($_SERVER['REQUEST_METHOD']=="POST" && isset($_POST['add_prod'])){
     $name = $_POST['name'];
