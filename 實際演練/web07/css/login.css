@@ -7,7 +7,7 @@ body{
     flex: 1;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center;    
     padding: 20px;
 }
 
@@ -17,78 +17,100 @@ body{
 
 .header, footer{
     width: 100%;
-    justify-content: space-between;
-    padding: 10px 20px;
-    background-color: antiquewhite;
+    flex: 1;
+    padding: 20px;
     border: 1px solid;
-}
-
-.header .logo{
-    font-weight: bold;
+    background-color: antiquewhite;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .header .title{
-    flex: 1;
     font-size: 2em;
     text-align: center;
+    flex: 1;
+    align-items: center;
     line-height: 80px;
 }
+
 .header a{
+    display: flex;
+    padding: 20px 30px;
+    line-height: 50px;
     background-color: aqua;
-    font-size: 2em;
-    text-align: center;
-    line-height: 80px;
-    padding: 0 20px;
+    color: black;
+    text-decoration: none;
     border-radius: 8px;
     margin: 0 10px;
-    text-decoration: none;
-    color: black;
+    font-size: 1em;
 }
 
 .header a:hover{
-    background-color: rgb(64, 102, 226);
+    background-color: rgb(186, 250, 250);
 }
 
 
-.padding{
-    padding: 10px 20px;
-}
-footer{
-    bottom: 0;
-    text-align: center;
-    padding: 10px 20px;
-}
-
-.in{
+.in{    
+    flex: 1;
+    padding: 60px 70px;
     background-color: beige;
-    padding: 90px 120px;
-    border-radius: 8px;
+    border: none;
+    border-radius: 10px;
 }
-
-.in .put{
+.put{
     padding: 10px 20px;
     font-size: 2em;
 }
 
-.put input{
+input{
     width: 92.5%;
-    padding: 10px;
+    padding: 10px 20px;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
 }
 
 .button{
     width: 100%;
     padding: 10px 20px;
-    background-color: rgb(113, 113, 255);
-    color: white;
-    font-size: 1em;
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(200, 243, 229);
 }
 
 .button:hover{
-    width: 100%;
+    background-color: rgb(173, 252, 225);
+}
+
+
+.padding{
+    padding: 30px;
+}
+
+footer{
+    bottom: 0;
+    text-align: center;
+}
+
+.lena{
+    flex: 1;
     padding: 10px 20px;
-    background-color: rgb(33, 33, 255);
-    color: white;
-    font-size: 1em;
+    text-align: center;
+}
+
+.button_lan{
+    width: 30%;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(200, 243, 229);
+    margin: 10px;
+}
+
+.button_lan:hover{
+    width: 30%;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(173, 252, 225);
+    margin: 10px;
 }

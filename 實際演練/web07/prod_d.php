@@ -1,29 +1,45 @@
 <?php
 include 'db.php';
-$list_gtin = [];
-$prod = [];
-$status = 0;
+$gtin_list = [];
+$comp_name = null;
+$status_list = [];
+$Invalid = 0;
+$die = [];
 
-if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['search'])){
+if($_SERVER['REQUEST_METHOD']=="POST" && isset($_POST['search'])){
     $gtin = $_POST['gtin'];
-    $clean = preg_replace('/\s+/','',$gtin);
-    $list_gtin = str_split($clean,13);
+    $clean = preg_replace("/\s+/",'',$gtin);
+    $gtin_list = str_split($clean,13);
 
-    foreach($list_gtin as $gtin){
-        $sql = "SELECT * FROM `prod` WHERE gtin = $gtin";
+    foreach($gtin_list as $gtins){
+        $sql = "SELECT * FROM `prod` WHERE gtin = $gtins";
         $result = $conn->query($sql);
-        while ($row = $result->fetch_assoc()){
-            $prod[] = $row;
 
-            if($row['status']=='Invalid'){
-                $status+=1;
+        if($result->num_rows > 0){
+            while($row = $result->fetch_assoc()){
+                $status_list[] = $row;
+                
+                if($row['status']=="Invalid"){
+                    $Invalid +=1;
+                }                
             }
+        }else{
+            $Invalid +=1;
+            $die[] = $gtins;
         }
     }
+
+
+
+    
 }
 
 
+
+
+
 ?>
+
 
 
 <!DOCTYPE html>
@@ -37,33 +53,36 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['search'])){
 <body>
     <div class="cont">
         <div class="header">
-            <div class="logo"><img src="img/web07logo.png" alt="logo" style="max-width: 80px;"></div>
+            <div class="logo"><img src="img/web07logo.png" alt="LOGO" style="width: 85px;"></div>
             <div class="title">臺灣人工智慧公會管理系統</div>
-            <a href="search.php">產品查詢</a>
-            <a href="index.php">返回</a>            
+            <a href="index.php">返回</a>       
+            <a href="search.php">查詢產品</a>  
         </div>
         <h2>批次驗證</h2>
         <div class="in">
             <form action="#" method="POST">
                 <div class="put">
-                    <label for="gtin">GTIN碼：</label>
+                    <label for="gtin">GTIN碼</label>
                     <textarea name="gtin" required></textarea>
                 </div>                
-                <button type="submit" class="button" name="search">查詢</button>
-            </form>  
-            <?php if($status==0):?>
-                <h3>All Valid</h3>
-            <?php endif;?>
-            <h2>
-                <?php foreach($prod as $prods):?>
-                    <h2><?= $prods['gtin']?>:<?= $prods['status']?></h2>
-                <?php endforeach;?>
-            </h2>            
-        </div>
+                <button type="submit" class="button" name="search">驗證</button>
+            </form>
+        </div>               
+
+        <?php if($Invalid == 0 && !empty($gtin)):?>
+            <h3>All Valid</h3>
+        <?php endif;?>
+        <?php foreach($status_list as $statuss):?>
+            <h3><?= $statuss['gtin']?>:<?= $statuss['status']?></h3>
+        <?php endforeach;?>
+        <?php foreach($die as $dies):?>
+            <h3><?= $dies?>:Invalid</h3>
+        <?php endforeach;?>
 
         <div class="padding"></div>
+
         <footer>
-            <p>sdfsdfsdfsdf</p>
+            <p>sdfsdfgsdfsdfsd</p>
         </footer>
     </div>
 </body>
